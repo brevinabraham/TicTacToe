@@ -30,22 +30,22 @@ class tictac:
 
     def fullboard(self):
         if len(self.board.loc[(self.board.loc[:,0]==0) | (self.board.loc[:,1]==0) | (self.board.loc[:,2]==0)]) ==0:
-            print("draw")
+            print("***draw***")
             self.__init__()
 
     def wl(self,player):
         for i in range(3):#win by vertical
             if self.board.loc[:,i].equals(pd.Series([player]*3)):
-                print(str(player) + " win")
+                print("***" + str(player) + " win***")
                 self.__init__()
         for row in self.board:#win by horizontal
             if self.board.loc[row,:].equals(pd.Series([player]*3)):
-                print(str(player) + " win")
+                print("***" + str(player) + " win***")
                 self.__init__()
                 
         if self.board.loc[0,0] == self.board.loc[1,1] == self.board.loc[2,2] == player or \
             self.board.loc[0,2] == self.board.loc[1,1] == self.board.loc[2,0] == player:#only other way is if diagonal 3inarow
-            print(str(player)+ " win")
+            print("***" + str(player) + " win***")
             self.__init__()
         self.fullboard()
 
