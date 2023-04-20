@@ -1,32 +1,39 @@
 import pandas as pd
 class tictac:
     def __init__(self):
-        self.board = pd.DataFrame([[0,0,0]]*3) 
+        self.board = pd.DataFrame([[0,0,0]]*3) #initialising the board
         print(self.board) 
-        self.player1 = 'x'
-        self.player2 = 'o'
+        self.players = ['x','o']
         self.start()
 
     def start(self):
-        self.move1 = [input(str(self.player1) + " move: ")]
-        self.update(self.player1, self.move1)
-        self.wld(self.player1)
-
-        self.move2 = [input(str(self.player2) + " move: ")]
-        self.update(self.player2, self.move2)
-        self.wld(self.player2)
+        for playr in self.players:
+            self.move = [input(str(playr) + " move: ")]
+            self.update(playr, self.move)
+            self.wl(playr)
 
         self.start()
 
-    def update(self, player, move):        
-        if self.board.loc[int(move[0][0]),int(move[0][1])] == 0:
-            self.board.loc[int(move[0][0]),int(move[0][1])] = player
-            print(self.board)
-        else:
+    def update(self, player, move):
+        try:
+            if self.board.loc[int(move[0][0]),int(move[0][1])] == 0:
+                self.board.loc[int(move[0][0]),int(move[0][1])] = player
+                print(self.board)
+            else:
+                move1 = [input(str(player) + " move: ")]
+                self.update(player, move1)
+        except:
+            print("outside map")
             move1 = [input(str(player) + " move: ")]
             self.update(player, move1)
-    
-    def wld(self,player):
+
+
+    def fullboard(self):
+        if len(self.board.loc[(self.board.loc[:,0]==0) | (self.board.loc[:,1]==0) | (self.board.loc[:,2]==0)]) ==0:
+            print("draw")
+            self.__init__()
+
+    def wl(self,player):
         for i in range(3):#win by vertical
             if self.board.loc[:,i].equals(pd.Series([player]*3)):
                 print(str(player) + " win")
@@ -40,6 +47,7 @@ class tictac:
             self.board.loc[0,2] == self.board.loc[1,1] == self.board.loc[2,0] == player:#only other way is if diagonal 3inarow
             print(str(player)+ " win")
             self.__init__()
+        self.fullboard()
 
 game = tictac()
 game.__init__()
