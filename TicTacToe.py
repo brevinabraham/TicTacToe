@@ -1,5 +1,6 @@
 import pandas as pd
-#Sarah Is Fantastic 
+print("Sarah Is Fantastic")
+
 class tictac:
     def __init__(self):
         self.board = pd.DataFrame([[0,0,0]]*3) #initialising the board
